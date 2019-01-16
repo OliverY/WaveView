@@ -20,7 +20,7 @@ public class MultiWaveActivity extends AppCompatActivity {
         final WaveView waveView2 = findViewById(R.id.wave_view2);
         final WaveView waveView3 = findViewById(R.id.wave_view3);
 
-        waveView.setDuration(3000)
+        waveView.setDuration(3)
                 .setColor(getResources().getColor(R.color.color_blue))
                 .setDirection(true)
                 .setWaveHeight(100)
@@ -28,14 +28,14 @@ public class MultiWaveActivity extends AppCompatActivity {
                 .setHorizontalLine(200)
                 .move();
 
-        waveView2.setDuration(4000)
+        waveView2.setDuration(4)
                 .setColor(getResources().getColor(R.color.color_blue))
                 .setDirection(false)
                 .setWaveHeight(100)
                 .setHorizontalLine(200)
                 .move();
 
-        waveView3.setDuration(5000)
+        waveView3.setDuration(5)
                 .setColor(getResources().getColor(R.color.color_blue))
                 .setDirection(true)
                 .setHorizontalLine(200)

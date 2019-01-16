@@ -130,7 +130,7 @@ public class WaveView extends View {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 fraction = (Float) animation.getAnimatedValue();
-                invalidate(mWidth/2,0,mWidth,mHeight);
+                invalidate();
             }
         });
         animator.setRepeatCount(ValueAnimator.INFINITE);
@@ -145,7 +145,7 @@ public class WaveView extends View {
     }
 
     public WaveView setDuration(int duration) {
-        this.duration = duration;
+        this.duration = duration*1000;
         return this;
     }
 

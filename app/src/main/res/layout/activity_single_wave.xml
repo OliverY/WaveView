@@ -9,8 +9,51 @@
     <com.yxj.waveview.WaveView
         android:id="@+id/wave_view"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="200dp" />
 
+    <CheckBox
+        android:id="@+id/cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="向左"/>
 
+    <TextView
+        android:id="@+id/tv_duration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="duration = s"/>
+
+    <android.support.v7.widget.AppCompatSeekBar
+        android:id="@+id/seekbar_duration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:min="1"
+        android:max="10"/>
+
+    <TextView
+        android:id="@+id/tv_horizontal_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="horizontalLine : "/>
+
+    <android.support.v7.widget.AppCompatSeekBar
+        android:id="@+id/seekbar_horizontal_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_wave_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="wave height : "/>
+
+    <android.support.v7.widget.AppCompatSeekBar
+        android:id="@+id/seekbar_wave_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
