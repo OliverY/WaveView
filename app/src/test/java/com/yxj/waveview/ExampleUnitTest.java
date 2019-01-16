@@ -17,6 +17,5 @@ public class ExampleUnitTest {
             System.out.println("i%2 = " + i%2);
         }
 
-
     }
 }

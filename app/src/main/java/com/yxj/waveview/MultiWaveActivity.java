@@ -1,15 +1,20 @@
 package com.yxj.waveview;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 
-public class Main2Activity extends AppCompatActivity {
+/**
+ * Author:  Yxj
+ * Time:    2019/1/16 下午1:10
+ * -----------------------------------------
+ * Description:
+ */
+public class MultiWaveActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_multi_wave);
 
         final WaveView waveView = findViewById(R.id.wave_view);
         final WaveView waveView2 = findViewById(R.id.wave_view2);
@@ -21,14 +26,14 @@ public class Main2Activity extends AppCompatActivity {
                 .setWaveHeight(100)
                 .setOffset(300)
                 .setHorizontalLine(200)
-                .build();
+                .move();
 
         waveView2.setDuration(4000)
                 .setColor(getResources().getColor(R.color.color_blue))
                 .setDirection(false)
                 .setWaveHeight(100)
                 .setHorizontalLine(200)
-                .build();
+                .move();
 
         waveView3.setDuration(5000)
                 .setColor(getResources().getColor(R.color.color_blue))
@@ -36,16 +41,7 @@ public class Main2Activity extends AppCompatActivity {
                 .setHorizontalLine(200)
                 .setOffset(100)
                 .setWaveHeight(100)
-                .build();
-
-        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                waveView.move();
-                waveView2.move();
-                waveView3.move();
-            }
-        });
+                .move();
 
     }
 }

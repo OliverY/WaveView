@@ -6,17 +6,11 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_single_wave"
+    <com.yxj.waveview.WaveView
+        android:id="@+id/wave_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="single wave" />
+        android:layout_height="300dp" />
 
-    <Button
-        android:id="@+id/btn_multi_wave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="multi wave" />
+
 
 </LinearLayout>

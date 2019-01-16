@@ -11,7 +11,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-
 /**
  * Author:  Yxj
  * Time:    2019/1/14 下午1:43
@@ -26,7 +25,7 @@ public class WaveView extends View {
     private int waveStep;
     private int startOffset = 100;
     private int color;
-    private int horizontalLine;   // 水平线
+    private int horizontalLine;   // 水平线，view底部到水平线的高度
 
     private boolean direction;   // 向右：false，向左:true
     private ValueAnimator animator;
@@ -68,6 +67,7 @@ public class WaveView extends View {
         super.onDraw(canvas);
 
         canvas.clipRect(0, 0, mWidth, mHeight);
+        int resultHorizontal = mHeight - horizontalLine;
 
         if (direction) {
             Matrix matrix = new Matrix();
@@ -83,12 +83,12 @@ public class WaveView extends View {
         offset = (int) (fraction * waveStep) + startOffset;
 
         canvas.save();
-        canvas.translate(0, horizontalLine);
+        canvas.translate(0, resultHorizontal);
 
         Path path = new Path();
         // 右下角的点
-        path.moveTo(offset + waveStep * -3, mHeight - horizontalLine);
-        path.rLineTo(0, -(mHeight - horizontalLine));
+        path.moveTo(offset + waveStep * -3, mHeight - resultHorizontal);
+        path.rLineTo(0, -(mHeight - resultHorizontal));
         for (int i = -2; i <= 2; i++) {
             int x1 = offset + waveStep / 2 + waveStep * (i - 1);
             int y1 = getWaveHeight(i);
@@ -98,7 +98,7 @@ public class WaveView extends View {
 
             path.quadTo(x1, y1, x2, y2);
         }
-        path.rLineTo(0, mHeight - horizontalLine);
+        path.rLineTo(0, mHeight - resultHorizontal);
         path.close();
 
         canvas.drawPath(path, paint);
@@ -130,7 +130,7 @@ public class WaveView extends View {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 fraction = (Float) animation.getAnimatedValue();
-                invalidate();
+                invalidate(mWidth/2,0,mWidth,mHeight);
             }
         });
         animator.setRepeatCount(ValueAnimator.INFINITE);
