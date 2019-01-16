@@ -1,6 +1,5 @@
 package com.yxj.waveview;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSeekBar;
@@ -8,6 +7,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.yxj.waveview.widget.WaveView;
 
 /**
  * Author:  Yxj

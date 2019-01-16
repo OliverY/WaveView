@@ -3,6 +3,8 @@ package com.yxj.waveview;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.yxj.waveview.widget.WaveView;
+
 /**
  * Author:  Yxj
  * Time:    2019/1/16 下午1:10

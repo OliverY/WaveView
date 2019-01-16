@@ -6,17 +6,17 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.yxj.waveview.WaveView
+    <com.yxj.waveview.widget.WaveView
         android:id="@+id/wave_view"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
 
-    <com.yxj.waveview.WaveView
+    <com.yxj.waveview.widget.WaveView
         android:id="@+id/wave_view2"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
 
-    <com.yxj.waveview.WaveView
+    <com.yxj.waveview.widget.WaveView
         android:id="@+id/wave_view3"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
