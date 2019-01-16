@@ -3,12 +3,11 @@ package com.yxj.waveview;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
@@ -22,14 +21,15 @@ import android.view.animation.LinearInterpolator;
 public class WaveView extends View {
 
     private Paint paint;
-    private Paint pointPaint;
     private int mWidth, mHeight;
     private int waveHeight = 200;
     private int waveStep;
     private int startOffset = 100;
+    private int color;
+    private int horizontalLine;   // 水平线
 
-
-    private int direction = 1;   // 正向:1，反向:-1
+    private boolean direction;   // 向右：false，向左:true
+    private ValueAnimator animator;
 
     public WaveView(Context context) {
         this(context, null);
@@ -45,14 +45,11 @@ public class WaveView extends View {
     }
 
     private void init(Context context) {
+        color = getResources().getColor(R.color.color_blue);
+
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(getResources().getColor(R.color.color_gray));
-        paint.setStrokeWidth(10);
-
-        pointPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        pointPaint.setStyle(Paint.Style.FILL);
-        pointPaint.setColor(Color.RED);
+        paint.setColor(color);
     }
 
     @Override
@@ -63,24 +60,35 @@ public class WaveView extends View {
         mHeight = getMeasuredHeight();
 
         waveStep = mWidth / 2;
+        horizontalLine = mHeight / 2;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        canvas.clipRect(0, 0, mWidth, mHeight);
+
+        if (direction) {
+            Matrix matrix = new Matrix();
+            float[] matrixValues = new float[]{
+                    -1, 0, 2 * waveStep,
+                    0, 1, 0,
+                    0, 0, 1
+            };
+            matrix.setValues(matrixValues);
+            canvas.setMatrix(matrix);
+        }
+
         offset = (int) (fraction * waveStep) + startOffset;
 
         canvas.save();
-        canvas.translate(0, mHeight / 2);
+        canvas.translate(0, horizontalLine);
 
         Path path = new Path();
-
         // 右下角的点
-        path.moveTo(offset + waveStep * -3, mHeight / 2);
-        path.rLineTo(0, -mHeight / 2);
-        Log.e("yxj", "================");
-
+        path.moveTo(offset + waveStep * -3, mHeight - horizontalLine);
+        path.rLineTo(0, -(mHeight - horizontalLine));
         for (int i = -2; i <= 2; i++) {
             int x1 = offset + waveStep / 2 + waveStep * (i - 1);
             int y1 = getWaveHeight(i);
@@ -90,10 +98,11 @@ public class WaveView extends View {
 
             path.quadTo(x1, y1, x2, y2);
         }
-
-        path.rLineTo(0, mHeight / 2);
+        path.rLineTo(0, mHeight - horizontalLine);
         path.close();
 
+        canvas.drawPath(path, paint);
+        canvas.restore();
     }
 
     private int getWaveHeight(int i) {
@@ -109,8 +118,12 @@ public class WaveView extends View {
     private int duration = 2000;
     private float fraction = 0;
 
-    public void start() {
-        ValueAnimator animator = ValueAnimator.ofFloat(0, 2f);
+    private void start() {
+        if (animator != null) {
+            animator.cancel();
+        }
+
+        animator = ValueAnimator.ofFloat(0, 2f);
         animator.setDuration(duration);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
@@ -126,4 +139,49 @@ public class WaveView extends View {
         animator.start();
     }
 
+    public WaveView setDirection(boolean direction) {
+        this.direction = direction;
+        return this;
+    }
+
+    public WaveView setDuration(int duration) {
+        this.duration = duration;
+        return this;
+    }
+
+    public WaveView setWaveHeight(int waveHeight) {
+        this.waveHeight = waveHeight;
+        return this;
+    }
+
+    public WaveView setOffset(int offset) {
+        this.offset = offset;
+        return this;
+    }
+
+    public WaveView setColor(int color) {
+        this.color = color;
+        return this;
+    }
+
+    public WaveView setHorizontalLine(int horizontalLine) {
+        this.horizontalLine = horizontalLine;
+        return this;
+    }
+
+    public void build() {
+        invalidate();
+    }
+
+    public void move() {
+        start();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (animator != null) {
+            animator.cancel();
+        }
+    }
 }
